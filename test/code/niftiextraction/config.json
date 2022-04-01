@@ -1,0 +1,13 @@
+{
+	"DICOMHome": "/home/jupyter/bucket/DXA_studies",
+	"OutputDirectory": "/home/jupyter/bucket/DXA_studies_nonifti",
+	"SplitIntoChunks": 50,
+    "Depth": 3,
+	"PrintImages": false,
+	"CommonHeadersOnly": true,
+	"UseProcesses": 12 ,
+	"FlattenedToLevel": "study",
+	"is16Bit":true,
+	"SendEmail": false,
+	"YourEmail": "test@test.edu"
+}

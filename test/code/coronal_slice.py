@@ -61,7 +61,7 @@ for i,j in df.iterrows():
   
         np.save(open(slice_name, 'wb'), img[:,slice_z,:])
         #print('saved')
-        df.at[i, 'coronal_slice'] =slice_z
+        df.at[i, 'coronal_slice_detected'] =slice_z
     except:
         print(i, 'EXCEPTION')
     if i%100 == 0:
