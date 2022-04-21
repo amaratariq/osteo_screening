@@ -115,15 +115,15 @@ class CTDataset(Dataset):
 
 do_train=False
 batch_size = 32
-model_name = 'densenet121-finetuned'
+
 save_dir = 'Models/Axial/'
-model_path = 'Modela/Axial/'
+model_path = 'Modela/Axial/train/train-01/'
 metric_name = 'auroc'
 maximize_metric=True
 
 header_data = '../data/'
 
-df = pd.read_csv(os.path.join(header_data, 'data.csv'))
+df = pd.read_csv(os.path.join(header_data, 'data_w_ehr_info.csv'))
 
 print('data frame read', len(df))
 sys.stdout.flush()
