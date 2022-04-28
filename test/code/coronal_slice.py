@@ -14,10 +14,7 @@ sys.stdout.flush()
 
 header_data = '../data/'
 
-df = pd.read_csv(os.path.join(header_data, 'data.csv'))
 
-
-print('data frame read', len(df))
 
 
 def check_largest_segment_slice(img):
@@ -46,28 +43,33 @@ def check_largest_segment_slice(img):
             sizes.append(0)
     return idx[np.argmax(sizes)]
 
+def main():
+    df = pd.read_csv(os.path.join(header_data, 'data.csv'))
+    print('data frame read', len(df))
+    for i,j in df.iterrows():
+    
+            image_path = df.at[i, 'NIFTI location-Coronal']
 
-for i,j in df.iterrows():
-  
-        image_path = df.at[i, 'NIFTI location-Coronal']
+            img = nib.load(image_path)
+            #print('read')
+            img = np.array(img.dataobj)
+            #print('numpy')
+            slice_z = check_largest_segment_slice(img) #round(0.4*a.shape[1])
+            print('{}: Slice detected at position {} '.format(i, slice_z))
+            slice_name = header_data+'/slices/coronal/'+str(df.at[i, 'CT_acc'])+'_'+str(slice_z)+'.npy'
+    
+            np.save(open(slice_name, 'wb'), img[:,slice_z,:])
+            #print('saved')
+            df.at[i, 'coronal_slice'] =slice_z
+        except:
+            print(i, 'EXCEPTION')
+        if i%100 == 0:
+            df.to_csv(os.path.join(header_data, 'data.csv'))
+            sys.stdout.flush()
 
-        img = nib.load(image_path)
-        #print('read')
-        img = np.array(img.dataobj)
-        #print('numpy')
-        slice_z = check_largest_segment_slice(img) #round(0.4*a.shape[1])
-        print('{}: Slice detected at position {} '.format(i, slice_z))
-        slice_name = header_data+'/slices/coronal/'+str(df.at[i, 'CT_acc'])+'_'+str(slice_z)+'.npy'
-  
-        np.save(open(slice_name, 'wb'), img[:,slice_z,:])
-        #print('saved')
-        df.at[i, 'coronal_slice_detected'] =slice_z
-    except:
-        print(i, 'EXCEPTION')
-    if i%100 == 0:
-        df.to_csv(os.path.join(header_data, 'data.csv'))
-        sys.stdout.flush()
+            
+    df.to_csv(os.path.join(header_data, 'data.csv'))
+    print('done')
 
-        
-df.to_csv(os.path.join(header_data, 'data.csv'))
-print('done')
+if __name__ == "__main__":
+    main()
