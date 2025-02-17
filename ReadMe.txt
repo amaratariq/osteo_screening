@@ -1,6 +1,10 @@
-Osteoporosis screening from CT scan
+# Osteoporosis screening from CT scan
 
-Dependencies:
+![](osteo.jpg)
+* Late fusion model for osteoporosis risk estimation from  EMR, Axial and Coronal vires of abdomenppelvic CT; Conv = convolutional layer; EMR = electronic medical record
+
+
+## Dependencies:
 install https://github.com/fk128/sarcopenia-ai
 L3 slice detection model is used for slice detection from CT axial view 
 
